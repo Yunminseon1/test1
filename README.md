@@ -118,4 +118,13 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 
 > 📌 *이미지 파일을 `/docs/erd.png` 경로에 넣고 아래 링크 유지하면 자동 표시됩니다.*
 # 7. 🗄️ DDL & DML
+
 # 8. 🎬 실행 결과 캡처
+<img width="265" height="309" alt="001" src="https://github.com/user-attachments/assets/718c3433-4389-487b-a5e4-c60848e510c4" />
+<img width="806" height="240" alt="002" src="https://github.com/user-attachments/assets/f9b02f2f-1507-44c3-ab36-8567a5025319" />
+<img width="626" height="206" alt="003" src="https://github.com/user-attachments/assets/c18a164b-ffc4-4469-b160-33b350825f45" />
+<img width="578" height="194" alt="004" src="https://github.com/user-attachments/assets/e04e3c38-73de-4871-b24d-8421a62c8440" />
+<img width="601" height="258" alt="005" src="https://github.com/user-attachments/assets/77b9322f-5f2e-473d-9e96-ec5712e5502a" />
+<img width="453" height="219" alt="006" src="https://github.com/user-attachments/assets/d5d7a7d2-43f2-48a6-adfe-c89cd6bf8641" />
+<img width="924" height="409" alt="007" src="https://github.com/user-attachments/assets/04d387f9-21f8-4f57-99c2-9e386e8edbdd" />
+<img width="776" height="254" alt="008" src="https://github.com/user-attachments/assets/88ac8ee1-d248-41de-b3d9-c72024ec3b2b" />
