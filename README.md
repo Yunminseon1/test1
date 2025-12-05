@@ -130,6 +130,7 @@ MindMatch는 익명으로 마음을 나누는 정서 케어 플랫폼으로, 보
 
 ## 4.DB 모델링
 
+<img width="1251" height="627" alt="Image" src="https://github.com/user-attachments/assets/f9f6b63f-59c7-4917-8774-84a972f8b169" />
 
 [스프레드시트 링크](https://docs.google.com/spreadsheets/xxxxxxx)
 
