@@ -1,5 +1,6 @@
 # 🧊 23기 디비프로젝트
-<img width="600" height="600" alt="Image" src="https://github.com/user-attachments/assets/d9412b37-5de3-4dba-ad81-bed35fdcd5dd" />
+
+
 
 
 **MindMatch**는 사용자가 정서적 스트레스, 우울감, 외로움, 불안 등을 안전하게 표현하고 공감받을 수 있는 소통 환경을 제공하기 위해 그리고 무분별한 정보량으로 어떤 정보를 선별해서 받아야 할지 모르는 사용자들을 위해 개발되었습니다.
