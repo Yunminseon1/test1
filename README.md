@@ -131,6 +131,8 @@ MindMatch는 익명으로 마음을 나누는 정서 케어 플랫폼으로, 보
 ## 4.DB 모델링
 
 
+[스프레드시트 링크](https://docs.google.com/spreadsheets/xxxxxxx)
+
 
 
 
