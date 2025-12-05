@@ -191,7 +191,8 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 </details>
 # 8. 🎬 실행 결과 캡처
 <details open>
-  <summary><b>실행결과</b></summary>
+  <summary><b><img width="265" height="309" alt="001" src="https://github.com/user-attachments/assets/d65f6d9c-f6ab-4b4a-b688-dbbfb1e91b6a" />
+</b></summary>
 
 ... 세부 항목들
 
