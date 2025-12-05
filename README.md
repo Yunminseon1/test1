@@ -74,7 +74,7 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 > 📌 *이미지 파일을 `/docs/erd.png` 경로에 넣고 아래 링크 유지하면 자동 표시됩니다.*
 # 7. 🗄️ DDL & DML
 <details open>
-  <summary><b>전체 DDL 리스트
+  <summary><b>전체 DDL 리스트 </b></summary>
   CREATE DATABASE Talk_Service;
   USE Talk_Service;
 
@@ -177,7 +177,7 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
       FOREIGN KEY (notification_id) REFERENCES Notification(id),
       FOREIGN KEY (user_id) REFERENCES User(id)
   );
-  </b></summary>
+ 
 
 
 
