@@ -74,16 +74,119 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 > 📌 *이미지 파일을 `/docs/erd.png` 경로에 넣고 아래 링크 유지하면 자동 표시됩니다.*
 # 7. 🗄️ DDL & DML
 <details open>
-  <summary><b>전체 DDL 리스트</b></summary>
+  <summary><b>전체 DDL 리스트
+  CREATE DATABASE Talk_Service;
+  USE Talk_Service;
 
-... 세부 항목들
+  CREATE TABLE User (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      nickname VARCHAR(255) NOT NULL,
+      join_date DATETIME NOT NULL,
+      is_active BOOLEAN NOT NULL,
+      role VARCHAR(255) NOT NULL,
+      user_id VARCHAR(255) NOT NULL,
+      user_password VARCHAR(255) NOT NULL,
+      user_name VARCHAR(255) NOT NULL,
+      phonenumber VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL UNIQUE
+  );
 
-</details>
+  CREATE TABLE ChatRoom (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      m_user_id BIGINT NOT NULL,
+      status VARCHAR(255) NOT NULL,
+      start_time DATETIME NOT NULL,
+      end_time DATETIME,
+      topic VARCHAR(255) NOT NULL,
+      FOREIGN KEY (m_user_id) REFERENCES User(id)
+  );
 
-<details open>
-  <summary><b>전체 DML 리스트</b></summary>
+  CREATE TABLE RoomParticipant (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      room_id BIGINT NOT NULL,
+      user_id BIGINT NOT NULL,
+      join_time DATETIME NOT NULL,
+      leave_time DATETIME NULL,
+      is_out BOOLEAN NOT NULL,
+      FOREIGN KEY (room_id) REFERENCES ChatRoom(id),
+      FOREIGN KEY (user_id) REFERENCES User(id)
+  );
 
-... 세부 항목들
+  CREATE TABLE ChatMessage (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      room_id BIGINT NOT NULL,
+      content VARCHAR(255) NOT NULL,
+      send_time DATETIME NOT NULL,
+      is_deleted BOOLEAN NOT NULL,
+      count BIGINT NOT NULL,
+      FOREIGN KEY (room_id) REFERENCES ChatRoom(id)
+  );
+
+  CREATE TABLE MessageRead (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      message_id BIGINT NOT NULL,
+      user_id BIGINT NOT NULL,
+      is_read BOOLEAN NOT NULL,
+      FOREIGN KEY (message_id) REFERENCES ChatMessage(id),
+      FOREIGN KEY (user_id) REFERENCES User(id)
+  );
+
+  CREATE TABLE Forbidden_words(
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      chat_room_id BIGINT NOT NULL,
+      forbidden_word VARCHAR(255) NOT NULL,
+      FOREIGN KEY (chat_room_id) REFERENCES ChatRoom(id)
+  );
+
+  CREATE TABLE Report (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      reporter_user_id BIGINT NOT NULL,
+      chat_message_id BIGINT NOT NULL,
+      reported_object_id BIGINT NOT NULL,
+      reason VARCHAR(255) NOT NULL,
+      report_time DATETIME NOT NULL,
+      process_status VARCHAR(255) NOT NULL,
+      FOREIGN KEY (reporter_user_id) REFERENCES User(id),
+      FOREIGN KEY (chat_message_id) REFERENCES ChatMessage(id),
+      FOREIGN KEY (reported_object_id) REFERENCES User(id)
+  );
+
+  CREATE TABLE BanLog(
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      user_id BIGINT NOT NULL,
+      reason VARCHAR(255) NULL,
+      ban_start_time DATETIME NOT NULL,
+      ban_end_time DATETIME NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES User(id)
+  );
+
+  CREATE TABLE Notification (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NULL,
+      content VARCHAR(3000) NOT NULL,
+      created_time DATETIME NOT NULL
+  );
+
+  CREATE TABLE NotificationUser (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      notification_id BIGINT NOT NULL,
+      user_id BIGINT NOT NULL,
+      is_read BOOLEAN NOT NULL,
+      read_time DATETIME NOT NULL,
+      delivered_time DATETIME NOT NULL,
+      FOREIGN KEY (notification_id) REFERENCES Notification(id),
+      FOREIGN KEY (user_id) REFERENCES User(id)
+  );
+  </b></summary>
+
+
+
+  </details>
+
+  <details open>
+    <summary><b>전체 DML 리스트</b></summary>
+
+  ... 세부 항목들
 
 </details>
 # 8. 🎬 실행 결과 캡처
