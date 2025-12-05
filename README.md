@@ -74,7 +74,7 @@
 ---
 
 # 5. 📑 요구사항 정의서 (Requirements Specification)
-
+https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuSz1M/edit?gid=2043864236#gid=2043864236
 | 대분류 | 중분류 | ID | 요구사항명 | 상세 설명 | 테이블 | 담당자 |
 |--------|---------|-----|-------------|-------------|---------|---------|
 | 회원 | 회원 관리 | MEM-001 | 회원가입 | 최초 접속 시 익명 닉네임 생성 | User | 세연 |
