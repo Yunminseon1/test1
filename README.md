@@ -1,4 +1,11 @@
 # 🗨️ Talk_Service  
+
+
+<img width="600" height="600" alt="Image" src="https://github.com/user-attachments/assets/31a0e57a-55a5-4849-a024-616f25fe5c6c" />
+
+
+
+
 익명 기반 채팅 서비스 DB 프로젝트
 
 ---
