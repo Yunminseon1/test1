@@ -73,8 +73,13 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 
 > 📌 *이미지 파일을 `/docs/erd.png` 경로에 넣고 아래 링크 유지하면 자동 표시됩니다.*
 # 7. 🗄️ DDL & DML
-<details open>
-  <summary><b>전체 DDL 리스트 </b></summary>
+#### DDL
+
+<details>
+<summary><b>테이블 생성 DDL</b></summary>
+	
+```sql
+  
   CREATE DATABASE Talk_Service;
   USE Talk_Service;
 
@@ -180,15 +185,30 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
  
 
 
-
-  </details>
-
-  <details open>
-    <summary><b>전체 DML 리스트</b></summary>
-
-  ... 세부 항목들
-
+  ```
 </details>
+
+</div>
+</details>
+
+<hr>
+
+#### DML
+
+<details>
+<summary><b>테스트 데이터 입력 DML</b></summary>
+	
+```sql
+
+```
+</details>
+
+</div>
+</details>
+
+<hr/>
+
+
 # 8. 🎬 실행 결과 캡처
 <details open>
   <summary><b>
