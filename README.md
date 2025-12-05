@@ -1,4 +1,4 @@
-<img width="806" height="240" alt="002" src="https://github.com/user-attachments/assets/ea19a4e4-2f1c-4db5-ae96-4abf5027f7e3" /># 🗨️ Talk_Service  
+# 🗨️ Talk_Service  
 익명 기반 채팅 서비스 DB 프로젝트
 
 ---
