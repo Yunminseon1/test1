@@ -62,7 +62,7 @@
 ---
 
 # 4. 🗂 WBS (Work Breakdown Structure)
-
+https://docs.google.com/spreadsheets/d/1QoSLlN1Hlh1HhbqGWCwALpak9ikuPs487jqbI0XQO9o/edit?gid=1961214343#gid=1961214343
 
 
 # 5. 📑 요구사항 정의서 (Requirements Specification)
