@@ -103,6 +103,7 @@ https://www.erdcloud.com/d/a82D67dvEfHuW6gDL
 CREATE DATABASE Talk_Service;
 USE Talk_Service;
 
+
 CREATE TABLE User (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nickname VARCHAR(255) NOT NULL,
@@ -116,6 +117,7 @@ CREATE TABLE User (
     email VARCHAR(255) NOT NULL UNIQUE
 );
 
+
 CREATE TABLE ChatRoom (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     m_user_id BIGINT NOT NULL,
@@ -125,6 +127,7 @@ CREATE TABLE ChatRoom (
     topic VARCHAR(255) NOT NULL,
     FOREIGN KEY (m_user_id) REFERENCES User(id)
 );
+
 
 CREATE TABLE RoomParticipant (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -137,6 +140,7 @@ CREATE TABLE RoomParticipant (
     FOREIGN KEY (user_id) REFERENCES User(id)
 );
 
+
 CREATE TABLE ChatMessage (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     room_id BIGINT NOT NULL,
@@ -147,6 +151,7 @@ CREATE TABLE ChatMessage (
     FOREIGN KEY (room_id) REFERENCES ChatRoom(id)
 );
 
+
 CREATE TABLE MessageRead (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     message_id BIGINT NOT NULL,
@@ -156,12 +161,14 @@ CREATE TABLE MessageRead (
     FOREIGN KEY (user_id) REFERENCES User(id)
 );
 
+
 CREATE TABLE Forbidden_words(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     chat_room_id BIGINT NOT NULL,
     forbidden_word VARCHAR(255) NOT NULL,
     FOREIGN KEY (chat_room_id) REFERENCES ChatRoom(id)
 );
+
 
 CREATE TABLE Report (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -176,6 +183,7 @@ CREATE TABLE Report (
     FOREIGN KEY (reported_object_id) REFERENCES User(id)
 );
 
+
 CREATE TABLE BanLog(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
@@ -185,12 +193,14 @@ CREATE TABLE BanLog(
     FOREIGN KEY (user_id) REFERENCES User(id)
 );
 
+
 CREATE TABLE Notification (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NULL,
     content VARCHAR(3000) NOT NULL,
     created_time DATETIME NOT NULL
 );
+
 
 CREATE TABLE NotificationUser (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -203,6 +213,7 @@ CREATE TABLE NotificationUser (
     FOREIGN KEY (user_id) REFERENCES User(id)
 );
 
+
 -- 관리자 및 유저 등록
 INSERT INTO User(nickname, join_date, is_active, role, user_id, user_password, user_name, phonenumber, email)
 VALUES 
@@ -211,6 +222,7 @@ VALUES
 ('익명2', NOW(), TRUE, 'USER', 'user02', '1234', '김철수', '010-3333-3333', 'user02@test.com'),
 ('익명3', NOW(), TRUE, 'USER', 'user03', '1234', '이영희', '010-4444-4444', 'user03@test.com');
 
+
 -- 프로시저: 채팅방/메시지/강퇴/신고/제재 시연
 DELIMITER //
 CREATE PROCEDURE simulate_chatroom_activity()
@@ -218,10 +230,12 @@ BEGIN
     DECLARE i INT DEFAULT 1;
     DECLARE j INT DEFAULT 1;
 
+
    -- 1. 채팅방 생성
     INSERT INTO ChatRoom(m_user_id, status, start_time, end_time, topic)
     VALUES (2, '활성', NOW(), NULL, '연애'),
            (3, '활성', NOW(), NULL, '취미');
+
 
    -- 2. 방 참여
     INSERT INTO RoomParticipant(room_id, user_id, join_time, leave_time, is_out)
@@ -230,6 +244,7 @@ BEGIN
            (1, 4, NOW(), NULL, FALSE),
            (2, 3, NOW(), NULL, FALSE),
            (2, 4, NOW(), NULL, FALSE);
+
 
    -- 3. 메시지 전송 (방당 20개)
     WHILE i <= 2 DO
@@ -241,10 +256,12 @@ BEGIN
         END WHILE;
         SET i = i + 1;
     END WHILE;
+
     
    -- 4. 메시지 읽음 랜덤 시뮬레이션
     INSERT INTO MessageRead(message_id, user_id, is_read)
     SELECT id, 2 + FLOOR(RAND()*2), TRUE FROM ChatMessage;
+
 
    -- 5. 금칙어 등록 & 강퇴 처리
     INSERT INTO Forbidden_words(chat_room_id, forbidden_word)
@@ -253,9 +270,11 @@ BEGIN
    UPDATE RoomParticipant SET is_out=TRUE, leave_time=NOW()
     WHERE user_id=4 AND room_id=1;
 
+
    -- 6. 신고 생성
     INSERT INTO Report(reporter_user_id, chat_message_id, reported_object_id, reason, report_time, process_status)
     VALUES (2, 5, 4, '욕설 사용', NOW(), '대기중');
+
 
    -- 7. 제재 기록 생성
     INSERT INTO BanLog(user_id, reason, ban_start_time, ban_end_time)
@@ -263,8 +282,10 @@ BEGIN
 END //
 DELIMITER ;
 
+
 -- 프로시저 실행
 CALL simulate_chatroom_activity();
+
 
 -- 데이터 조회
 SELECT * FR*
