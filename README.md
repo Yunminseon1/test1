@@ -100,8 +100,8 @@ https://www.erdcloud.com/d/a82D67dvEfHuW6gDL
 
 ## 📦  5. 코드
 
-create database Talk_Service;
-use Talk_Service;
+CREATE DATABASE Talk_Service;
+USE Talk_Service;
 
 CREATE TABLE User (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -112,7 +112,7 @@ CREATE TABLE User (
     user_id VARCHAR(255) NOT NULL,
     user_password VARCHAR(255) NOT NULL,
     user_name VARCHAR(255) NOT NULL,
-    phonenumber varchar(255) not null,
+    phonenumber VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE
 );
 
@@ -125,8 +125,6 @@ CREATE TABLE ChatRoom (
     topic VARCHAR(255) NOT NULL,
     FOREIGN KEY (m_user_id) REFERENCES User(id)
 );
-
-
 
 CREATE TABLE RoomParticipant (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -159,10 +157,10 @@ CREATE TABLE MessageRead (
 );
 
 CREATE TABLE Forbidden_words(
- id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
- chat_room_id BIGINT NOT NULL,
- forbidden_word VARCHAR(255) NOT NULL,
- FOREIGN KEY (chat_room_id) REFERENCES ChatRoom(id)
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    chat_room_id BIGINT NOT NULL,
+    forbidden_word VARCHAR(255) NOT NULL,
+    FOREIGN KEY (chat_room_id) REFERENCES ChatRoom(id)
 );
 
 CREATE TABLE Report (
@@ -205,8 +203,7 @@ CREATE TABLE NotificationUser (
     FOREIGN KEY (user_id) REFERENCES User(id)
 );
 
-
--- 관리자, 유저 등록
+-- 관리자 및 유저 등록
 INSERT INTO User(nickname, join_date, is_active, role, user_id, user_password, user_name, phonenumber, email)
 VALUES 
 ('관리자', NOW(), TRUE, 'ADMIN', 'admin01', '1234', '관리자홍', '010-1111-1111', 'admin@test.com'),
@@ -214,19 +211,19 @@ VALUES
 ('익명2', NOW(), TRUE, 'USER', 'user02', '1234', '김철수', '010-3333-3333', 'user02@test.com'),
 ('익명3', NOW(), TRUE, 'USER', 'user03', '1234', '이영희', '010-4444-4444', 'user03@test.com');
 
---프로시저: 채팅방/메시지/강퇴/신고/제재 시연
+-- 프로시저: 채팅방/메시지/강퇴/신고/제재 시연
 DELIMITER //
 CREATE PROCEDURE simulate_chatroom_activity()
 BEGIN
     DECLARE i INT DEFAULT 1;
     DECLARE j INT DEFAULT 1;
 
-   -- 3-1. 채팅방 생성
+   -- 1. 채팅방 생성
     INSERT INTO ChatRoom(m_user_id, status, start_time, end_time, topic)
     VALUES (2, '활성', NOW(), NULL, '연애'),
            (3, '활성', NOW(), NULL, '취미');
 
-   -- 3-2. 방 참여
+   -- 2. 방 참여
     INSERT INTO RoomParticipant(room_id, user_id, join_time, leave_time, is_out)
     VALUES (1, 2, NOW(), NULL, FALSE),
            (1, 3, NOW(), NULL, FALSE),
@@ -234,7 +231,7 @@ BEGIN
            (2, 3, NOW(), NULL, FALSE),
            (2, 4, NOW(), NULL, FALSE);
 
-   -- 3-3. 메시지 전송 (방당 20개)
+   -- 3. 메시지 전송 (방당 20개)
     WHILE i <= 2 DO
         SET j = 1;
         WHILE j <= 20 DO
@@ -244,85 +241,33 @@ BEGIN
         END WHILE;
         SET i = i + 1;
     END WHILE;
-
-   -- 3-4. 메시지 읽음 랜덤
+    
+   -- 4. 메시지 읽음 랜덤 시뮬레이션
     INSERT INTO MessageRead(message_id, user_id, is_read)
     SELECT id, 2 + FLOOR(RAND()*2), TRUE FROM ChatMessage;
 
-   -- 3-5. 금칙어 등록 & 욕설 포함 메시지 강퇴
+   -- 5. 금칙어 등록 & 강퇴 처리
     INSERT INTO Forbidden_words(chat_room_id, forbidden_word)
     VALUES (1, '욕설1'), (1, '욕설2');
 
-   -- 금칙어 포함 메시지 강퇴 (방장 시뮬레이션)
-    UPDATE RoomParticipant SET is_out=TRUE, leave_time=NOW()
+   UPDATE RoomParticipant SET is_out=TRUE, leave_time=NOW()
     WHERE user_id=4 AND room_id=1;
 
-   -- 3-6. 신고 자동 생성
+   -- 6. 신고 생성
     INSERT INTO Report(reporter_user_id, chat_message_id, reported_object_id, reason, report_time, process_status)
     VALUES (2, 5, 4, '욕설 사용', NOW(), '대기중');
 
-   -- 3-7. 제재 기록 생성 (관리자)
+   -- 7. 제재 기록 생성
     INSERT INTO BanLog(user_id, reason, ban_start_time, ban_end_time)
     VALUES (4, '욕설 사용으로 제재', NOW(), DATE_ADD(NOW(), INTERVAL 1 DAY));
 END //
 DELIMITER ;
+
 -- 프로시저 실행
 CALL simulate_chatroom_activity();
 
-
--- 회원 조회
-SELECT * FROM User;
-
--- 채팅방 조회
-SELECT * FROM ChatRoom;
-
--- 참여자 조회
-SELECT * FROM RoomParticipant;
-
--- 메시지 조회
-SELECT * FROM ChatMessage;
-
--- 메시지 읽음
-SELECT * FROM MessageRead;
-
--- 금칙어 조회
-SELECT * FROM Forbidden_words;
-
-UPDATE Forbidden_words
-SET forbidden_word = '욕설변경'
-WHERE id = 1;
-
-UPDATE Forbidden_words
-SET forbidden_word = 'ㅅㅂ'
-WHERE id = 1;
-
-UPDATE Forbidden_words
-SET forbidden_word = '개새끼'
-WHERE id = 2;
--- 금칙어등록+강퇴 발생 후
-SELECT * FROM RoomParticipant WHERE is_out=TRUE;
-
--- 신고 조회
-SELECT * FROM Report;
-
--- 제재 조회
-SELECT * FROM BanLog;
-
--- 알림 생성
-INSERT INTO Notification(title, content, created_time)
-VALUES ('공지', '테스트 공지입니다.', NOW());
-
--- 알림 사용자 발송
-INSERT INTO NotificationUser(notification_id, user_id, is_read, read_time, delivered_time)
-VALUES (1, 2, FALSE, NOW(), NOW());
-
--- 알림 읽음 처리(is_read 타입을 voolean 처리를 해서 true는 1, false는 0으로 나옴)
-UPDATE NotificationUser SET is_read=TRUE, read_time=NOW() WHERE id=1;
-SELECT * FROM NotificationUser WHERE id = 1;
-
--- 알림조회
-SELECT * FROM Notification; 
-SELECT * FROM NotificationUser;
+-- 데이터 조회
+SELECT * FR*
 
 
 
