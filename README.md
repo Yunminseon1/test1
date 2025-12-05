@@ -5,6 +5,11 @@
 
 # 1. 📌 프로젝트 개요 (Overview)
 
+<img width="600" height="800" alt="Image" src="https://github.com/user-attachments/assets/3d04becb-fc56-440f-8e69-ad3d986c08d5" />
+
+
+
+
 **Talk_Service**는 사용자들이 익명으로 참여할 수 있는 안전한 채팅 환경을 제공하기 위한  
 **DB 중심의 채팅 서비스 시스템**입니다.
 
