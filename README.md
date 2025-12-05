@@ -75,43 +75,200 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 
 
 
-<img width="899" height="482" alt="스크린샷 2025-12-05 100923" src="https://github.com/user-attachments/assets/de6f1daa-ef6e-426a-acba-98b827aeb49f" />
+CREATE DATABASE Talk_Service;
+USE Talk_Service;
 
+CREATE TABLE User (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nickname VARCHAR(255) NOT NULL,
+    join_date DATETIME NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    role VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
+    phonenumber VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE
+);
 
-<img width="918" height="613" alt="스크린샷 2025-12-05 101013" src="https://github.com/user-attachments/assets/bd38829f-c8c7-4b56-845e-abe09e5c227e" />
+CREATE TABLE ChatRoom (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    m_user_id BIGINT NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME,
+    topic VARCHAR(255) NOT NULL,
+    FOREIGN KEY (m_user_id) REFERENCES User(id)
+);
 
+CREATE TABLE RoomParticipant (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    room_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    join_time DATETIME NOT NULL,
+    leave_time DATETIME NULL,
+    is_out BOOLEAN NOT NULL,
+    FOREIGN KEY (room_id) REFERENCES ChatRoom(id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
 
-<img width="796" height="612" alt="image" src="https://github.com/user-attachments/assets/17986ae0-44bf-48d4-8eec-bf20e25351ec" />
+CREATE TABLE ChatMessage (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    room_id BIGINT NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    send_time DATETIME NOT NULL,
+    is_deleted BOOLEAN NOT NULL,
+    count BIGINT NOT NULL,
+    FOREIGN KEY (room_id) REFERENCES ChatRoom(id)
+);
 
+CREATE TABLE MessageRead (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    message_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    is_read BOOLEAN NOT NULL,
+    FOREIGN KEY (message_id) REFERENCES ChatMessage(id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
 
-<img width="793" height="472" alt="image" src="https://github.com/user-attachments/assets/dc094fd1-e7c0-4991-bfc1-31099ec4c947" />
+CREATE TABLE Forbidden_words(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    chat_room_id BIGINT NOT NULL,
+    forbidden_word VARCHAR(255) NOT NULL,
+    FOREIGN KEY (chat_room_id) REFERENCES ChatRoom(id)
+);
 
+CREATE TABLE Report (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    reporter_user_id BIGINT NOT NULL,
+    chat_message_id BIGINT NOT NULL,
+    reported_object_id BIGINT NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    report_time DATETIME NOT NULL,
+    process_status VARCHAR(255) NOT NULL,
+    FOREIGN KEY (reporter_user_id) REFERENCES User(id),
+    FOREIGN KEY (chat_message_id) REFERENCES ChatMessage(id),
+    FOREIGN KEY (reported_object_id) REFERENCES User(id)
+);
 
-<img width="905" height="381" alt="image" src="https://github.com/user-attachments/assets/0395d9be-af41-41fd-849a-8cdeb6c0d6b0" />
+CREATE TABLE BanLog(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    reason VARCHAR(255) NULL,
+    ban_start_time DATETIME NOT NULL,
+    ban_end_time DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
 
+CREATE TABLE Notification (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NULL,
+    content VARCHAR(3000) NOT NULL,
+    created_time DATETIME NOT NULL
+);
 
-<img width="917" height="463" alt="image" src="https://github.com/user-attachments/assets/34841149-0e47-410f-8417-c66b54dafe41" />
+CREATE TABLE NotificationUser (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    notification_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    is_read BOOLEAN NOT NULL,
+    read_time DATETIME NOT NULL,
+    delivered_time DATETIME NOT NULL,
+    FOREIGN KEY (notification_id) REFERENCES Notification(id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
 
+-- 관리자 및 유저 등록
+INSERT INTO User(nickname, join_date, is_active, role, user_id, user_password, user_name, phonenumber, email)
+VALUES 
+('관리자', NOW(), TRUE, 'ADMIN', 'admin01', '1234', '관리자홍', '010-1111-1111', 'admin@test.com'),
+('익명1', NOW(), TRUE, 'USER', 'user01', '1234', '홍길동', '010-2222-2222', 'user01@test.com'),
+('익명2', NOW(), TRUE, 'USER', 'user02', '1234', '김철수', '010-3333-3333', 'user02@test.com'),
+('익명3', NOW(), TRUE, 'USER', 'user03', '1234', '이영희', '010-4444-4444', 'user03@test.com');
 
-<img width="912" height="327" alt="image" src="https://github.com/user-attachments/assets/f8d12139-762c-4b74-adbd-f9e31e96045c" />
+-- 프로시저: 채팅방/메시지/강퇴/신고/제재 시연
+DELIMITER //
+CREATE PROCEDURE simulate_chatroom_activity()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE j INT DEFAULT 1;
 
+    -- 1. 채팅방 생성
+    INSERT INTO ChatRoom(m_user_id, status, start_time, end_time, topic)
+    VALUES (2, '활성', NOW(), NULL, '연애'),
+           (3, '활성', NOW(), NULL, '취미');
 
-<img width="905" height="246" alt="image" src="https://github.com/user-attachments/assets/6161d97b-9e4d-4f1d-9b75-baae86f2c5d9" />
+    -- 2. 방 참여
+    INSERT INTO RoomParticipant(room_id, user_id, join_time, leave_time, is_out)
+    VALUES (1, 2, NOW(), NULL, FALSE),
+           (1, 3, NOW(), NULL, FALSE),
+           (1, 4, NOW(), NULL, FALSE),
+           (2, 3, NOW(), NULL, FALSE),
+           (2, 4, NOW(), NULL, FALSE);
 
+    -- 3. 메시지 전송 (방당 20개)
+    WHILE i <= 2 DO
+        SET j = 1;
+        WHILE j <= 20 DO
+            INSERT INTO ChatMessage(room_id, content, send_time, is_deleted, count)
+            VALUES (i, CONCAT('메시지 ', j, ' in room ', i), NOW(), FALSE, 0);
+            SET j = j + 1;
+        END WHILE;
+        SET i = i + 1;
+    END WHILE;
 
-<img width="917" height="358" alt="image" src="https://github.com/user-attachments/assets/17d49551-da86-4110-a125-b775a5580c7f" />
+    -- 4. 메시지 읽음 랜덤 시뮬레이션
+    INSERT INTO MessageRead(message_id, user_id, is_read)
+    SELECT id, 2 + FLOOR(RAND()*2), TRUE FROM ChatMessage;
 
+    -- 5. 금칙어 등록 & 강퇴 처리
+    INSERT INTO Forbidden_words(chat_room_id, forbidden_word)
+    VALUES (1, '욕설1'), (1, '욕설2');
 
-<img width="883" height="553" alt="image" src="https://github.com/user-attachments/assets/278357ae-5637-423e-b01d-b1e712d48239" />
+    UPDATE RoomParticipant SET is_out=TRUE, leave_time=NOW()
+    WHERE user_id=4 AND room_id=1;
 
+    -- 6. 신고 생성
+    INSERT INTO Report(reporter_user_id, chat_message_id, reported_object_id, reason, report_time, process_status)
+    VALUES (2, 5, 4, '욕설 사용', NOW(), '대기중');
 
-<img width="917" height="611" alt="image" src="https://github.com/user-attachments/assets/43efc815-ba90-4008-9bfb-298b87c0cddd" />
+    -- 7. 제재 기록 생성
+    INSERT INTO BanLog(user_id, reason, ban_start_time, ban_end_time)
+    VALUES (4, '욕설 사용으로 제재', NOW(), DATE_ADD(NOW(), INTERVAL 1 DAY));
+END //
+DELIMITER ;
 
+-- 프로시저 실행
+CALL simulate_chatroom_activity();
 
-<img width="888" height="607" alt="image" src="https://github.com/user-attachments/assets/1ef5b38d-5c88-4449-92d3-f72c94d47946" />
+-- 데이터 조회
+SELECT * FROM User;
+SELECT * FROM ChatRoom;
+SELECT * FROM RoomParticipant;
+SELECT * FROM ChatMessage;
+SELECT * FROM MessageRead;
 
+SELECT * FROM Forbidden_words;
 
+UPDATE Forbidden_words SET forbidden_word = '욕설변경' WHERE id = 1;
+UPDATE Forbidden_words SET forbidden_word = 'ㅅㅂ' WHERE id = 1;
+UPDATE Forbidden_words SET forbidden_word = '개새끼' WHERE id = 2;
 
+SELECT * FROM RoomParticipant WHERE is_out=TRUE;
+
+SELECT * FROM Report;
+SELECT * FROM BanLog;
+
+INSERT INTO Notification(title, content, created_time)
+VALUES ('공지', '테스트 공지입니다.', NOW());
+
+INSERT INTO NotificationUser(notification_id, user_id, is_read, read_time, delivered_time)
+VALUES (1, 2, FALSE, NOW(), NOW());
+
+UPDATE NotificationUser SET is_read=TRUE, read_time=NOW() WHERE id=1;
+
+SELECT * FROM Notification;
+SELECT * FROM NotificationUser;
 
 
 # 6. 🧱 ERD 설계서
