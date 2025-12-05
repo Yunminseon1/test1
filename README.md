@@ -63,12 +63,10 @@
 
 # 4. 🗂 WBS (Work Breakdown Structure)
 https://docs.google.com/spreadsheets/d/1QoSLlN1Hlh1HhbqGWCwALpak9ikuPs487jqbI0XQO9o/edit?gid=1961214343#gid=1961214343
-<img width="1567" height="572" alt="wbs" src="https://github.com/user-attachments/assets/bbd745ec-1958-4c05-b2a5-696be5cecc6e" />
 
 
 # 5. 📑 요구사항 정의서 (Requirements Specification)
 https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuSz1M/edit?gid=2043864236#gid=2043864236
-<img width="1394" height="596" alt="요구사항정의서" src="https://github.com/user-attachments/assets/2dc63960-abb6-439a-b030-79f187998bea" />
 
 
 # 6. 🧱 ERD 설계서
@@ -83,22 +81,17 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 </details>
 
 <details open>
-  <summary><b>전체 DDL 리스트</b></summary>
+  <summary><b>전체 DML 리스트</b></summary>
 
 ... 세부 항목들
 
 </details>
 # 8. 🎬 실행 결과 캡처
 <details open>
-  <summary><b>전체 DDL 리스트</b></summary>
+  <summary><b>실행결과</b></summary>
 
 ... 세부 항목들
 
 </details>
 
-<details open>
-  <summary><b>전체 DDL 리스트</b></summary>
 
-... 세부 항목들
-
-</details>
