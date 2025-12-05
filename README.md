@@ -69,26 +69,6 @@ https://docs.google.com/spreadsheets/d/1QoSLlN1Hlh1HhbqGWCwALpak9ikuPs487jqbI0XQ
 https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuSz1M/edit?gid=2043864236#gid=2043864236
 
 
----
-## 📦  5. 코드
-
-<details open>
-  <summary><b>전체 DDL 리스트</b></summary>
-
-... 세부 항목들
-
-</details>
-
-<details open>
-  <summary><b>전체 DDL 리스트</b></summary>
-
-... 세부 항목들
-
-</details>
-
-
-
-
 # 6. 🧱 ERD 설계서
 
 > 📌 *이미지 파일을 `/docs/erd.png` 경로에 넣고 아래 링크 유지하면 자동 표시됩니다.*
