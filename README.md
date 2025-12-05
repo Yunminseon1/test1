@@ -148,7 +148,7 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 <img width="888" height="607" alt="image" src="https://github.com/user-attachments/assets/1ef5b38d-5c88-4449-92d3-f72c94d47946" />
 
 
-<img width="900" height="337" alt="image" src="https://github.com/us
+
 
 
 # 6. 🧱 ERD 설계서
