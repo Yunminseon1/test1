@@ -1,4 +1,4 @@
-# 🗨️ Talk_Service  
+<img width="806" height="240" alt="002" src="https://github.com/user-attachments/assets/ea19a4e4-2f1c-4db5-ae96-4abf5027f7e3" /># 🗨️ Talk_Service  
 익명 기반 채팅 서비스 DB 프로젝트
 
 ---
@@ -191,10 +191,17 @@ https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuS
 </details>
 # 8. 🎬 실행 결과 캡처
 <details open>
-  <summary><b><img width="265" height="309" alt="001" src="https://github.com/user-attachments/assets/d65f6d9c-f6ab-4b4a-b688-dbbfb1e91b6a" />
+  <summary><b>
 </b></summary>
+<img width="265" height="309" alt="001" src="https://github.com/user-attachments/assets/d65f6d9c-f6ab-4b4a-b688-dbbfb1e91b6a" />
+<img width="806" height="240" alt="002" src="https://github.com/user-attachments/assets/d417d1df-260d-4300-b572-920eb5e59570" />
+<img width="626" height="206" alt="003" src="https://github.com/user-attachments/assets/930fb553-6c6d-4376-8910-08d1fad193b3" />
+<img width="578" height="194" alt="004" src="https://github.com/user-attachments/assets/8b382da6-2239-481c-ab5a-856230500ccc" />
+<img width="601" height="258" alt="005" src="https://github.com/user-attachments/assets/aa243ebb-c5eb-499a-a646-4218b0a25ff2" />
+<img width="453" height="219" alt="006" src="https://github.com/user-attachments/assets/a3f80bdf-54d0-4a1b-abdd-99ef1fa5c2a8" />
+<img width="924" height="409" alt="007" src="https://github.com/user-attachments/assets/73518a67-8ab1-40f1-a292-7b7666be998c" />
+<img width="776" height="254" alt="008" src="https://github.com/user-attachments/assets/7a061b5f-66c7-4123-9923-e9ed7c8055b0" />
 
-... 세부 항목들
 
 </details>
 
