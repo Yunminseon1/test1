@@ -63,11 +63,19 @@
 
 # 4. 🗂 WBS (Work Breakdown Structure)
 https://docs.google.com/spreadsheets/d/1QoSLlN1Hlh1HhbqGWCwALpak9ikuPs487jqbI0XQO9o/edit?gid=1961214343#gid=1961214343
-
+<details open>
+  <summary><b>
+</b></summary>
+<img width="1567" height="572" alt="wbs" src="https://github.com/user-attachments/assets/913cf75a-d1ad-40cf-b859-80cb371741fc" />
+</details>
 
 # 5. 📑 요구사항 정의서 (Requirements Specification)
 https://docs.google.com/spreadsheets/d/1xQt-FRa4emQ58YfOVakJ1_T3ugmK7aH82Ts8HsuSz1M/edit?gid=2043864236#gid=2043864236
-
+<details open>
+  <summary><b>
+</b></summary>
+<img width="1394" height="596" alt="요구사항정의서" src="https://github.com/user-attachments/assets/a75d0baf-56bf-4d08-bb61-ccfa07384c50" />
+</details>
 
 # 6. 🧱 ERD 설계서
 
